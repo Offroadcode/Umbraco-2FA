@@ -1,0 +1,35 @@
+﻿<div ng-controller="fortress.smsProvider.controller">
+    <div id="login" class="umb-modalcolumn umb-dialog" >
+      
+        <div class="form ">
+
+            <h1 class="ng-binding"> <img src="/App_Plugins/TwoFactor/Images/Sms.png" alt="">Sms authentication</h1>
+               <div ng-show="view == 'submit2FA'">
+                    <form method="POST" name="loginForm" ng-submit="submitValidation(otp)">
+                        <p>
+                            </p><ol>
+                                <li>We have sent an sms to your mobile number ending with {{lastFourDigits}}</li>
+                                <li>Enter the authentication code you have recieved</li>
+                                <li>Click on 'Authenticate'</li>
+                            </ol>
+                        <p></p>
+                        <div class="control-group">
+                            <input type="text" ng-model="otp" name="otp" class="input-xlarge" localize="placeholder" placeholder="Enter your code" />
+                        </div>
+                        <div>
+                            <input type="checkbox" id="cb"><label for="cb">This is a trusted computer and no second form of authentication is needed.</label>
+                        </div>
+                        <div>
+                             <button type="submit" class="btn">Authenticate</button>
+
+                        </div>
+                    </form>
+                </div>
+                <div ng-show="view == 'loading'">
+
+                                <h1>Sending Text</h1>
+                  
+                </div>
+        </div>
+    </div>
+</div>

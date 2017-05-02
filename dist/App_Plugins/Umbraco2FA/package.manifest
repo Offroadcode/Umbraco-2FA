@@ -1,0 +1,8 @@
+{
+    javascript: [
+        "~/app_plugins/Umbraco2FA/js/Umbraco2FA.js"
+    ],
+    css: [
+        "~/app_plugins/Umbraco2FA/css/Umbraco2FA.css"
+    ]
+}

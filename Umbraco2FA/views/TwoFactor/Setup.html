@@ -1,0 +1,69 @@
+﻿<div ng-controller="fortress.setup.controller">
+    <div id="login" class="umb-modalcolumn umb-dialog" >
+        <div class="form">
+            <div ng-show="view == 'providerSelection'">
+                <h1 class="ng-binding"><localize key="fortress_specify2FAOption">Specify your two-factor authentication option</localize></h1>
+                <p>
+                    <localize key="fortress_explain2FAOption">Due to the password policy of this website, you have to select an two-factor authentication option. This second factor makes sure that even if your password gets comprimised, another user cannot access your account.</localize><br><br>
+                    <localize key="fortress_clickOnAllowedOptions">Click on of the allowed authentication options</localize>
+                </p>
+                <div ng-repeat="provider in availableProviders" class="twoFactorProvider" ng-click="selectProvider(provider)">
+                    <h3>
+                        <input type="radio" id="email" name="twofactor">
+                        <label for="email">{{provider}}</label>
+                    </h3>
+                </div>
+            </div>
+            <div ng-show="view == 'loading'">
+                <h1><localize key="fortress_loadingNotLong">Loading... we won't be long</localize></h1> 
+            </div> 
+
+            <div ng-show="view == 'setup-SMS'">
+                 <form method="POST" name="configureSMSForm" ng-submit="configureSMS(phoneNumber)">
+                        <p>
+                            <localize key="fortress_pleaseEnterPhone">Please enter your phone number including countrycode i.e. +447123456780</localize>
+                        </p>
+                        <p></p>
+                        <div class="control-group">
+                            <input type="text" ng-model="phoneNumber" name="phoneNumber" class="input-xlarge" localize="placeholder" placeholder="Mobile number" />
+                        </div>
+                        <div>
+                             <button type="submit" class="btn">Verify</button>
+                        </div>
+                    </form>
+            </div>
+             <div ng-show="view == 'verify-SMSProvider'">
+                 <form method="POST" name="verifySMSForm" ng-submit="verifySMS(otp)">
+                        <p>
+                            Please enter the code you recieved
+                        </p>
+                        <div class="control-group">
+                            <input type="text" ng-model="otp" name="otp" class="input-xlarge" localize="placeholder" placeholder="Enter your code" />
+                        </div>
+                        <div>
+                             <button type="submit" class="btn">Verify</button>
+                        </div>
+                    </form>
+            </div>
+
+            <div ng-show="view == 'setup-GoogleAuthenticator'">
+                 <form method="POST" name="configureGoogleAuthenticatorForm" ng-submit="verifyGoogleAuthenticator(googleAuthenticatorOTP)">
+                        <p>
+                            Please scan this image
+                        </p>
+                        <p></p>
+                        <div class="control-group">
+                                    <img id="imgQrCode" ng-src="{{googleAuthenticatorImage}}" />
+                                    <p>ManualSetup: {{googleAuthenticatorManual}}</p>
+                        </div>
+                        <div class="control-group">
+                            <input type="text" ng-model="googleAuthenticatorOTP" name="googleAuthenticatorOTP" class="input-xlarge" localize="placeholder" placeholder="XXXXXX" />
+                        </div>
+                        <div>
+                             <button type="submit" class="btn">Verify</button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>

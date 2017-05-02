@@ -1,0 +1,23 @@
+<div ng-controller="fortress.twoFactorLogin.controller">
+    <div id="twoFactorlogin" class="umb-modalcolumn umb-dialog" ng-cloak>
+        <div class="form">
+            <h1>2FA</h1>
+
+            <div ng-if="step=='loading'">
+
+                            <h1>Loading</h1>
+                
+            </div>
+            <div>
+                <p>Enter 2FA Code</p>
+
+                <form method="POST" name="twoFactorCodeForm" ng-submit="validate(provider, code)" ng-if="step=='code'">
+                    <div class="control-group">
+                        <input type="text" name="code" class="input-xlarge" placeholder="2fa code" ng-model="code" />
+                    </div>
+                    <button type="submit" class="btn">Validate</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

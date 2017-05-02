@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<language alias="en_us" intName="English (US)" localName="English (US)" lcid="" culture="en-US">
+    <creator>
+        <name>Offroadcode Limited</name>
+        <link>https://offroadcode.com/</link>
+    </creator>
+    <area alias="fortress">
+        <key alias="blackList">Black List</key>
+        <key alias="clickOnAllowedOptions">Click on of the allowed authentication options</key>
+        <key alias="disabled">Disabled</key>
+        <key alias="explain2FAOption">Due to the password policy of this website, you have to select an two-factor authentication option. This second factor makes sure that even if your password gets comprimised, another user cannot access your account.</key>
+        <key alias="filterBy">Filter By</key>
+        <key alias="firewall">Firewall</key>
+        <key alias="fortress">Fortress</key>
+        <key alias="id">ID</key>
+        <key alias="ipAddress">IP Address</key>
+        <key alias="lockedAccounts">Locked Accounts</key>
+        <key alias="loadingNotLong">Loading... we won't be long</key>
+        <key alias="logs">Logs</key>
+        <key alias="pleaseEnterPhone">Please enter your phone number including countrycode i.e. +447123456780</key>
+        <key alias="relatedUser">Related user</key>
+        <key alias="remarks">Remarks</key>
+        <key alias="specify2FAOption">Specify your two-factor authentication option</key>
+        <key alias="showing">showing</key>
+        <key alias="unlock">Unlock</key>
+        <key alias="whiteList">White List</key>
+    </area>
+</language>
