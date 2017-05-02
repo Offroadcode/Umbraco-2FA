@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "AAEQ,4BAAM,CACF,WAAW,CAAE,IAAI,CAErB,yCAAmB,CACf,YAAY,CAAE,IAAI",
-"sources": ["../sass/Umbraco2FA.scss"],
+"mappings": "",
+"sources": [],
 "names": [],
 "file": "Umbraco2FA.css"
 }

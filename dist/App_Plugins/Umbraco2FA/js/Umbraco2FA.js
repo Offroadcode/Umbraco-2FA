@@ -14,7 +14,7 @@ angular.module('umbraco.resources').factory('FortressBackOfficeResource',
                 return umbRequestHelper.resourcePromise(
                    $http.get(url),
                    'Failed to Get Logs');
-            },
+            }, 
 
             GetLockedAccounts:function() {
                 var url = '/umbraco/backoffice/Umbraco2FA/LockedAccountsApi/GetData';
@@ -73,7 +73,7 @@ angular.module('umbraco.resources').factory('FortressTwoFactorResource',
             
             GetAvailableMethods: function () {
                 return umbRequestHelper.resourcePromise(
-                   $http.get('/Umbraco/Fortress/TwoFactorSetup/GetAvailableTwoFactorMethods'),
+                   $http.get('/Umbraco/Umbraco2FA/TwoFactorSetup/GetAvailableTwoFactorMethods'),
                    'Failed to GetAvailableMethods');
             },
              
@@ -96,6 +96,12 @@ angular.module('umbraco').controller('fortress.edit.controller', function ($scop
  
     };
 }); 
+angular.module('umbraco').controller('fortress.dashboard.controller', function($scope, $routeParams) {
+    $scope.save = function() {
+ 
+    };
+}); 
+ 
 angular.module("umbraco").controller("fortress.setup.controller",
     function ($scope, $cookies, localizationService, userService, externalLoginInfo, resetPasswordCodeInfo, $timeout, authResource,FortressTwoFactorResource,notificationsService ) {
         $scope.view="loading"; 
@@ -323,7 +329,7 @@ angular.module("umbraco").controller("fortress.twofactor.controller",
             return $http.post('/umbraco/backoffice/Umbraco2FA/SettingsApi/SaveSMSSettings', $scope.data.smsSettings).then(function(response) {
             });
         };
- 
+
         $scope.getTab();
         $scope.loadData();
     });

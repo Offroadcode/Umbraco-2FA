@@ -53,7 +53,7 @@ module.exports = function(grunt) {
 			      'Umbraco2FA/resources/BackOffice.resource.js',
             'Umbraco2FA/resources/TwoFactor.resource.js',
             'Umbraco2FA/controllers/edit.controller.js',
-            'Umbraco2FA/controllers/fortress.dashboard.controller.js',
+            'Umbraco2FA/controllers/umbraco2FA.dashboard.controller.js',
             'Umbraco2FA/controllers/TwoFactor/umbraco2FA.setup.controller.js',
             'Umbraco2FA/controllers/TwoFactor/umbraco2FA.smsProvider.controller.js',
             'Umbraco2FA/controllers/TwoFactor/umbraco2FA.twoFactorLogin.controller.js',
@@ -193,11 +193,11 @@ module.exports = function(grunt) {
       ],
       css: [
         'Umbraco2FA/css/*.css',
-        '!Umbraco2FA/css/Fortress.css'
+        '!Umbraco2FA/css/Umbraco2FA.css'
       ],
 	    sass: [
 		    'Umbraco2FA/sass/*.scss',
-		    '!Umbraco2FA/sass/Fortress.scss'
+		    '!Umbraco2FA/sass/Umbraco2FA.scss'
 	    ]
   },
   msbuild: {
