@@ -27,12 +27,10 @@
   <DataTypes />
   <control />
 	<Actions>
-		<Action runat="install"  
-			alias="addDashboardSection" 
-			dashboardAlias="Our.Umbraco.FortressDashboard">
+		<Action runat="install" alias="addDashboardSection" dashboardAlias="Our.Umbraco.FortressDashboard">
 			 <section>
 				<areas>
-				  <area>fortress</area>
+				  <area>umbraco2FA</area>
 				</areas>
 				<tab caption="Fortress">
 				  <control>/App_Plugins/Umbraco2FA/views/dashboard.html</control>
