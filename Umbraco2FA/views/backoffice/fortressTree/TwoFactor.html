@@ -4,21 +4,21 @@
       ng-submit="save()"
       val-form-manager>
     <umb-editor-view>
-        <umb-header tabs="tabs">
+        <umb-header>
             <div class="span7">
-                <h1><localize key="sections_settings">Settings</localize></h1>
+                <h1>{{tabs[0].label}}</h1>
             </div>
         </umb-header>
         <umb-load-indicator ng-show="!settingsLoaded"></umb-load-indicator>
         <!-- Two Factor -->
-        <umb-editor-container>
+        <umb-editor-container>  
         <umb-tab-view ng-show="currentPage() == 'authenticator'">  
             <umb-pane>
                 <umb-tab id="tabGoogleAuthenticator" rel="GoogleAuthenticator" class="active">             
-                    <umb-control-group label="@SiteName">
+                    <umb-control-group label="Site Name">
                         <input type="text" name="TwoFactor.SiteName" ng-model="data.authenticatorSettings.Name" /> 
                     </umb-control-group>
-                    <umb-control-group label="@Enabled">
+                    <umb-control-group label="Enabled">
                         <input type="checkbox" name="TwoFactor.Enabled" ng-model="data.authenticatorSettings.Enabled" /> 
                     </umb-control-group>
                 </umb-tab>  
@@ -28,16 +28,16 @@
         <umb-tab-view ng-show="currentPage() == 'sms'">  
             <umb-pane>
             <umb-tab id="tabSMS" rel="SMS" class="active">             
-                <umb-control-group label="@MessageFormat">
+                <umb-control-group label="Message Format">
                     <input type="text" name="SMS.MessageFormat" ng-model="data.smsSettings.MessageFormat" /> 
                 </umb-control-group>
-                <umb-control-group label="@ActiveSMSProvider">
+                <umb-control-group label="Active SMS Provider">
                     <select ng-model="data.smsSettings.CurrentSMSProvider">
                         <option value="null">Select Provider</option>
                         <option ng-repeat="x in data.smsSettings.SMSProviders" value="{{x.Classname}}">{{x.Name}}</option>
                     </select>
                 </umb-control-group>
-                <umb-control-group label="@Enabled">
+                <umb-control-group label="Enabled">
                     <input type="checkbox" name="SMS.Enabled" ng-model="data.smsSettings.Enabled" />
                 </umb-control-group>
             </umb-tab>  
