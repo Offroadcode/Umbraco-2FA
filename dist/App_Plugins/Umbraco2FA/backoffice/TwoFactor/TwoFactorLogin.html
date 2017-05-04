@@ -1,22 +1,25 @@
 <div ng-controller="fortress.twoFactorLogin.controller">
     <div id="twoFactorlogin" class="umb-modalcolumn umb-dialog" ng-cloak>
-        <div class="form">
-            <h1>2FA</h1>
-
-            <div ng-if="step=='loading'">
-
-                            <h1>Loading</h1>
-                
-            </div>
-            <div>
-                <p>Enter 2FA Code</p>
-
-                <form method="POST" name="twoFactorCodeForm" ng-submit="validate(provider, code)" ng-if="step=='code'">
-                    <div class="control-group">
-                        <input type="text" name="code" class="input-xlarge" placeholder="2fa code" ng-model="code" />
-                    </div>
-                    <button type="submit" class="btn">Validate</button>
-                </form>
+        <div class="login-overlay__logo"> 
+            <img ng-src="assets/img/application/logo.png" ng-srcset="assets/img/application/logo@2x.png 2x, assets/img/application/logo@3x.png 3x" src="assets/img/application/logo.png" srcset="assets/img/application/logo@2x.png 2x, assets/img/application/logo@3x.png 3x">
+        </div>
+        <div class="umb-login-container">         
+            <div class="form">
+                <h1>Two Factor Authentication</h1>
+                <div ng-if="step=='loading'">
+                    <h1>Loading</h1>
+                </div>
+                <div>
+                    <p>Please enter your two factor authentication code.</p>
+                    <p>If you are using Google Authenticator, please open that app and enter the code there.</p>
+                    <p>If you are using an SMS provider, please enter the number that is being texted to your phone.</p>
+                    <form method="POST" name="twoFactorCodeForm" ng-submit="validate(provider, code)" ng-if="step=='code'">
+                        <div class="control-group">
+                            <input type="text" name="code" class="input-xlarge" placeholder="2fa code" ng-model="code" />
+                        </div>
+                        <button type="submit" class="btn">Validate</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
