@@ -1,5 +1,16 @@
 ﻿angular.module("umbraco").controller("fortress.setup.controller",
-    function ($scope, $cookies, localizationService, userService, externalLoginInfo, resetPasswordCodeInfo, $timeout, authResource,FortressTwoFactorResource,notificationsService ) {
+    function (
+        $scope, 
+        $cookies, 
+        localizationService, 
+        userService, 
+        externalLoginInfo, 
+        resetPasswordCodeInfo, 
+        $timeout, 
+        authResource, 
+        FortressTwoFactorResource,
+        notificationsService) {
+
         $scope.view="loading"; 
         $scope.availableProviders = [];
         $scope.smsValidationToken = "";
