@@ -19,7 +19,30 @@ namespace Orc.Fortress.Controllers
 
         public List<string> GetAvailableTwoFactorMethods()
         {
-            return UserManager.TwoFactorProviders.Keys.ToList();
+            var databaseSettings = CustomDatabase.GetSettingsFromDatabase();
+            var providers = UserManager.TwoFactorProviders.Keys.ToList();
+            var filteredList = new List<string>();
+            foreach(string provider in providers) {
+                if (provider == "SMS")
+                {
+                    if (databaseSettings.SMS_Enabled)
+                    {
+                        filteredList.Add(provider);
+                    }
+                } else if (provider == "GoogleAuthenticator")
+                {
+                    if (databaseSettings.GoogleAuthenticator_Enabled)
+                    {
+                        filteredList.Add(provider);
+                    }
+                } else
+                {
+                    filteredList.Add(provider); 
+                }
+            }
+
+            return filteredList;
+
         }
         public HttpResponseMessage SetupGoogleAuth()
         {
