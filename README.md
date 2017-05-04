@@ -20,6 +20,10 @@ By default, Umbraco 2FA will be enabled with Google Authenticator. By navigating
 
 #### Configuring Google Authenticator
 
+Google Authenticator is a 2FA tool by Google that your users can download for for free onto their phones for added security when logging onto your site. (More details below in "How to Use".)
+
+To set it up:
+
 1. In the Umbraco 2FA section, click on "Google Authenticator".
 2. You may alter the site name, and toggle this authenticator option on or off via the "Enabled" button. Click Save to complete.
 
@@ -41,6 +45,8 @@ You can turn off two-factor authentication for your site as follows:
 ### Initial Configuration
 
 When a user tries to log into an Umbraco 2FA-protected installation for the first time, they will be prompted to choose the type of authenticator they wish to use, and then confirm with an authenticator-specific code before proceeding.
+
+One option is to use Google Authenticator. It's a free 2FA tool from Google that you can download for free from [Google Play](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2) for your Android phone or [iTunes](https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8) for your iPhone. Once you have it downloaded, you can follow the instructions on your screen.
 
 ### Logging In
 
