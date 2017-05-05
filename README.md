@@ -29,7 +29,20 @@ To set it up:
 
 #### Configuring An SMS Provider
 
-These steps coming soon!
+The sending of the SMS is left to the developer to implement (but we are open to pull requests for various suppliers)
+
+Your SMS provider should implement Orc.Fortress.SMSProvider.BaseSMSProvider
+
+You will have to implement a single method, void SendSms(string number, string message)
+
+the number is the number to send the message to, and the message is the complete sms message.
+
+##### Settings #####
+Sms providers will probably have some settings with them such as api keys etc.
+On your implementation of the sms provider, you can have public properties which will be auto populated from the settings within the umbraco backend
+e.g.
+[FromFortressSettings("This is the username for you account with the provider")]
+public string UserName { get; set; }
 
 #### Disabling 2FA
 
