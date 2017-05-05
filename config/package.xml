@@ -32,7 +32,7 @@
 				<areas>
 				  <area>umbraco2FA</area>
 				</areas>
-				<tab caption="Fortress">
+				<tab caption="Umbraco 2FA">
 				  <control>/App_Plugins/Umbraco2FA/views/dashboard.html</control>
 				</tab>
 			 </section>

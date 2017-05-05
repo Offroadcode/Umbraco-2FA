@@ -3,6 +3,7 @@
       ng-controller="fortress.twofactor.controller" 
       ng-submit="save()"
       val-form-manager>
+    <!-- Two Factor -->
     <umb-editor-view>
         <umb-header>
             <div class="span7">
@@ -10,51 +11,57 @@
             </div>
         </umb-header>
         <umb-load-indicator ng-show="!settingsLoaded"></umb-load-indicator>
-        <!-- Two Factor -->
-        <umb-editor-container>  
-        <umb-tab-view ng-show="currentPage() == 'authenticator'">  
-            <umb-pane>
-                <umb-tab id="tabGoogleAuthenticator" rel="GoogleAuthenticator" class="active">             
-                    <umb-control-group label="Site Name">
-                        <input type="text" name="TwoFactor.SiteName" ng-model="data.authenticatorSettings.Name" /> 
+        <umb-editor-container>
+            <!-- Google Authenticator -->
+            <umb-tab-view ng-show="currentPage() == 'authenticator'">  
+                <umb-pane>
+                    <umb-tab id="tabGoogleAuthenticator" rel="GoogleAuthenticator" class="active">             
+                        <div>
+                            <p>Google Authenticator is a free 2FA tool from Google that you can download for free from <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target="_blank">Google Play <i ng-class="value.icon" class="icon-out"></i></a> for your Android phone or <a href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8" target="_blank">iTunes <i ng-class="value.icon" class="icon-out"></i></a> for your iPhone.</p>
+                            <p>Umbraco 2FA supports using Google Authenticator out of the box with no additional setup.</p>
+                            <p>You can change your site name for the purposes of how it displays on the Google Authenticator app.</p>
+                            <hr/>
+                        </div>
+                        <umb-control-group label="Site Name">
+                            <input type="text" name="TwoFactor.SiteName" ng-model="data.authenticatorSettings.Name" /> 
+                        </umb-control-group>
+                        <umb-control-group label="Enabled">
+                            <input type="checkbox" name="TwoFactor.Enabled" ng-model="data.authenticatorSettings.Enabled" /> 
+                        </umb-control-group>
+                    </umb-tab>  
+                </umb-pane>
+            </umb-tab-view>
+            <!-- SMS -->
+            <umb-tab-view ng-show="currentPage() == 'sms'">  
+                <umb-pane>
+                <umb-tab id="tabSMS" rel="SMS" class="active">             
+                    <umb-control-group label="Message Format">
+                        <input type="text" name="SMS.MessageFormat" ng-model="data.smsSettings.MessageFormat" /> 
+                    </umb-control-group>
+                    <umb-control-group label="Active SMS Provider">
+                        <select ng-model="data.smsSettings.CurrentSMSProvider">
+                            <option value="null">Select Provider</option>
+                            <option ng-repeat="x in data.smsSettings.SMSProviders" value="{{x.Classname}}">{{x.Name}}</option>
+                        </select>
                     </umb-control-group>
                     <umb-control-group label="Enabled">
-                        <input type="checkbox" name="TwoFactor.Enabled" ng-model="data.authenticatorSettings.Enabled" /> 
+                        <input type="checkbox" name="SMS.Enabled" ng-model="data.smsSettings.Enabled" />
                     </umb-control-group>
                 </umb-tab>  
-            </umb-pane>
-        </umb-tab-view>
-        <!-- SMS -->
-        <umb-tab-view ng-show="currentPage() == 'sms'">  
-            <umb-pane>
-            <umb-tab id="tabSMS" rel="SMS" class="active">             
-                <umb-control-group label="Message Format">
-                    <input type="text" name="SMS.MessageFormat" ng-model="data.smsSettings.MessageFormat" /> 
-                </umb-control-group>
-                <umb-control-group label="Active SMS Provider">
-                    <select ng-model="data.smsSettings.CurrentSMSProvider">
-                        <option value="null">Select Provider</option>
-                        <option ng-repeat="x in data.smsSettings.SMSProviders" value="{{x.Classname}}">{{x.Name}}</option>
-                    </select>
-                </umb-control-group>
-                <umb-control-group label="Enabled">
-                    <input type="checkbox" name="SMS.Enabled" ng-model="data.smsSettings.Enabled" />
-                </umb-control-group>
-            </umb-tab>  
-            </umb-pane>
-        </umb-tab-view>  
-        <!-- SMSProvider -->
-        <umb-tab-view ng-show="currentPage() == 'smsProvider'">  
-            <umb-pane>
-                <umb-tab id="tabProvider" rel="Provider" class="active">          
-                    <div ng-repeat="setting in data.smsProviders[getCurrentProvider()].Settings">   
-                        <umb-control-group label="{{setting.Name}}">
-                            <input type="text" ng-model="setting.Value" /> 
-                        </umb-control-group>
-                    </div>
-                </umb-tab>
-            </umb-pane>  
-        </umb-tab-view>
+                </umb-pane>
+            </umb-tab-view>  
+            <!-- SMSProvider -->
+            <umb-tab-view ng-show="currentPage() == 'smsProvider'">  
+                <umb-pane>
+                    <umb-tab id="tabProvider" rel="Provider" class="active">          
+                        <div ng-repeat="setting in data.smsProviders[getCurrentProvider()].Settings">   
+                            <umb-control-group label="{{setting.Name}}">
+                                <input type="text" ng-model="setting.Value" /> 
+                            </umb-control-group>
+                        </div>
+                    </umb-tab>
+                </umb-pane>  
+            </umb-tab-view>
         </umb-editor-container>
         <umb-editor-footer>
             <umb-editor-footer-content-right>

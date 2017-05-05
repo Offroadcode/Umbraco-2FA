@@ -4,6 +4,8 @@ Umbraco 2FA is a two factor authentication solution for Umbraco 7.6+ by [Offroad
 
 ## Installation & Setup
 
+**Note!:** Umbraco 2FA only works for Umbraco 7.6 and greater. Do not install on earlier versions.
+
 ### Installing Package to Umbraco
 
 You can install the Umbraco 2FA package to Umbraco via these following steps:
@@ -29,20 +31,17 @@ To set it up:
 
 #### Configuring An SMS Provider
 
-The sending of the SMS is left to the developer to implement (but we are open to pull requests for various suppliers)
+Functionality for implementing an SMS provider requires a developer to write code for the sending of the SMS itself. We are are open to any pull requests for support for various suppliers.
 
-Your SMS provider should implement Orc.Fortress.SMSProvider.BaseSMSProvider
+If you are doing such, your SMS provider should implement Orc.Fortress.SMSProvider.BaseSMSProvider.
 
-You will have to implement a single method, void SendSms(string number, string message)
+You will have to implement a single method, `void SendSms(string number, string message)`. The number is the phone number to send the message to, and the message is the complete text of the SMS message to send.
 
-the number is the number to send the message to, and the message is the complete sms message.
+##### Settings
 
-##### Settings #####
-Sms providers will probably have some settings with them such as api keys etc.
-On your implementation of the sms provider, you can have public properties which will be auto populated from the settings within the umbraco backend
-e.g.
+SMS providers will probably have some settings with them such as API keys, etc. On your implementation of the SMS provider, you can have public properties which will be auto populated from the settings within the umbraco backend (e.g.
 [FromFortressSettings("This is the username for you account with the provider")]
-public string UserName { get; set; }
+public string UserName { get; set; }).
 
 #### Disabling 2FA
 

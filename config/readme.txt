@@ -1,0 +1,1 @@
+Umbraco 2FA is a two factor authentication package for Umbraco 7.6+. Learn more at http://github.com/offroadcode/umbraco-2fa.
