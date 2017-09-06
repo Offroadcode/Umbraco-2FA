@@ -1,0 +1,2 @@
+.sections li a[href="#/umbraco2FA"] *[icon="icon-firewall"]+span{display:none}.sections li a[href="#/umbraco2FA"] *[icon="icon-firewall"]::after{display:block;content:"Umbraco 2FA";font-size:11px;line-height:1.4em;opacity:0;transition:all .3s linear}.sections:hover li a[href="#/umbraco2FA"] *[icon="icon-firewall"]::after{opacity:1}.umb2fa-hide-tab{display:none !important}
+/*# sourceMappingURL=Umbraco2FA.css.map */

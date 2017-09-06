@@ -5,8 +5,8 @@ angular.module("umbraco").controller("fortress.twoFactorLogin.controller",
         $scope.provider = "";
         $scope.providers = [];
         $scope.step = "loading"; 
-        
-
+        $scope.didFail = false;
+        $scope.errorMsg="";
         authResource.get2FAProviders()
             .then(function (data) {
                 var provider = data[0];
@@ -25,8 +25,12 @@ angular.module("umbraco").controller("fortress.twoFactorLogin.controller",
                 .then(function (data) {
                     userService.setAuthenticationSuccessful(data);
                     $scope.submit(true);
-                });
-
+                }, 
+                function(reason) {
+                    console.log("didFail", reason);
+                    $scope.didFail = true;
+                    $scope.errorMsg = reason.errorMsg;
+                }
+            );
         };
-
     });

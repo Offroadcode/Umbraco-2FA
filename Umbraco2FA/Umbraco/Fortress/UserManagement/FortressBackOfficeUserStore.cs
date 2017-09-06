@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Orc.Fortress.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -51,7 +52,13 @@ namespace Orc.Fortress.UserManagement
         /// </remarks>
         public override Task<bool> GetTwoFactorEnabledAsync(BackOfficeIdentityUser user)
         {
-            return Task.FromResult(true);
+            var db = new FortressDatabase();
+            var details = db.GetUserDetails(user.Id);
+            if (details != null && details.IsValidated)
+            {
+                return Task.FromResult(true);
+            }
+            return Task.FromResult(false);
 
             //If you persisted this data somewhere then you could either look it up now, or you could
             //explicitly implement all IUserStore "Find*" methods, call their base implementation and then lookup

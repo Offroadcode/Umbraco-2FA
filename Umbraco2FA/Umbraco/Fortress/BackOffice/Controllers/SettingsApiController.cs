@@ -1,9 +1,9 @@
 ﻿using Orc.Fortress.Attributes;
-using Orc.Fortress.BackOffice.Models;
+
 using Orc.Fortress.Cache;
 using Orc.Fortress.Database;
-using Orc.Fortress.Models;
-using Orc.Fortress.SMSProvider;
+
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,16 +16,51 @@ namespace Orc.Fortress.BackOffice.Controllers
     {
         public GoogleAuthenticatorSettingsModel GetGoogleAuthenticatorSettings()
         {
+            CheckAuth();
             var settings = SettingsCache.Instance;
             var viewModel = new GoogleAuthenticatorSettingsModel()
             {
                 Enabled = settings.GoogleAuthenticator_Enabled,
-                Name = settings.GoogleAuthenticator_Name
+                Name = settings.GoogleAuthenticator_Name,
+                Users = new List<UserListTwoFactorSettings>()
             };
+            int totalUsers;
+            var allUsers = ApplicationContext.Services.UserService.GetAll(0, 5000, out totalUsers);
+
+            foreach(var user in allUsers)
+            {
+                var userDetails = CustomDatabase.GetUserDetails(user.Id);
+                viewModel.Users.Add(new UserListTwoFactorSettings()
+                {
+                    Name = user.Name,
+                    HasAccountEnabled = userDetails != null && userDetails.IsValidated,
+                    Id = user.Id
+                });
+            }
+
             return viewModel;
         }
+        public GoogleAuthenticatorSettingsModel RemoveGoogleAuthenticatorForUser(int id)
+        {
+            CheckAuth();
+            var model = new UserTwoFactorSettings();
+            
+            var details = CustomDatabase.GetUserDetails(id);
+            if (details == null || !details.IsValidated)
+            {
+                throw new UnauthorizedAccessException("This account hasnt got authenticator setup");
+            }
+
+            details.IsValidated = false;
+            CustomDatabase.Update(details);
+
+
+            return GetGoogleAuthenticatorSettings();
+        }
+
         public bool SaveGoogleAuthenicatorSettings(GoogleAuthenticatorSettingsModel model)
         {
+            CheckAuth();
             var settings = CustomDatabase.GetSettingsFromDatabase();
 
             settings.GoogleAuthenticator_Enabled = model.Enabled;
@@ -37,90 +72,24 @@ namespace Orc.Fortress.BackOffice.Controllers
             return true;
         }
 
-        public SMSSettingsModel GetSMSSettings()
+        private void CheckAuth()
         {
-            var settings = SettingsCache.Instance;
-            var viewModel = new SMSSettingsModel()
+            if (!Security.CurrentUser.AllowedSections.Contains(FortressConstants.UmbracoApplication.ApplicationAlias))
             {
-                MessageFormat = settings.SMS_MessageFormat,
-                Enabled = settings.SMS_Enabled,
-                CurrentSMSProvider = settings.SMS_CurrentSMSProvider
-            };
-
-            viewModel.SMSProviders = FortressContext.GetAllSmsProviders();
-
-
-
-            return viewModel;
+                throw new Exception("You do not have access to this section");
+            }
         }
-        public bool SaveSMSSettings(SMSSettingsModel model)
-        {
-            var settings = CustomDatabase.GetSettingsFromDatabase();
-
-            settings.SMS_CurrentSMSProvider = model.CurrentSMSProvider;
-            settings.SMS_Enabled = model.Enabled;
-            settings.SMS_MessageFormat = model.MessageFormat;
-
-            CustomDatabase.SaveSettings(settings);
-
-            SettingsCache.ClearCache();
-            return true;
-        }
-
-
-        public SMSProviderSettingsModel GetSMSProviderSettings(string ProviderName)
-        {
-            var type = Type.GetType(ProviderName);
-            var smsAttr = type.GetCustomAttribute<SmsProviderAttribute>();
-            var allProviders = FortressContext.GetAllSmsProviders();
-            var thisProvider = allProviders.FirstOrDefault(x => x.Classname == ProviderName);
-            var settings = SettingsCache.Instance;
-            var viewModel = new SMSProviderSettingsModel()
-            {
-                Name = smsAttr.Name,
-                ClassName = thisProvider.Classname
-            };
-            viewModel.Settings = settings.GetPropertiesOnType(type);
-
-            return viewModel;
-        }
-        public bool SaveSMSProviderSettings(SMSProviderSettingsModel model)
-        {
-            var settings = CustomDatabase.GetSettingsFromDatabase();
-
-            settings.SaveSmsProviderSettings(model);
-                     
-            CustomDatabase.SaveSettings(settings);
-
-            SettingsCache.ClearCache();
-            return true;
-        }
-
-
-
     }
     public class GoogleAuthenticatorSettingsModel
     {
         public string Name { get; set; }
         public bool Enabled { get; set; }
+        public List<UserListTwoFactorSettings> Users { get; internal set; }
     }
-    public class SMSSettingsModel
-    {
-        public string MessageFormat { get; set; }
-        public bool Enabled { get; set; }
-        public string CurrentSMSProvider { get; set; }
-        public List<SmsProviderViewModel> SMSProviders { get; set; }
-    }
-
-    public class SMSProviderSettingsModel
+    public class UserListTwoFactorSettings
     {
         public string Name { get; set; }
-        public string ClassName { get; set; }
-        public List<SMSProviderSettingModel> Settings { get; set; }
-    }
-    public class SMSProviderSettingModel
-    {
-        public string Name { get; set; }
-        public string Value { get; set; }
+        public bool HasAccountEnabled { get; set; }
+        public int Id { get; internal set; }
     }
 }

@@ -31,8 +31,9 @@ namespace Orc.Fortress.UserManagement
                 logger,
                 context.Request);
 
-        }
 
+        }
+      
         /// <summary>
         ///     Sign in the user in using the user name and password
         /// </summary>
@@ -44,17 +45,9 @@ namespace Orc.Fortress.UserManagement
         public override async Task<SignInStatus> PasswordSignInAsync(string userName, string password, bool isPersistent,
             bool shouldLockout)
         {
-            var db = new FortressDatabase();
-
-
+            
             var result = await base.PasswordSignInAsync(userName, password, isPersistent, shouldLockout);
-            if (result == SignInStatus.LockedOut)
-            {
-                db.AddNewSignInEvent(userName, SignInStatus.LockedOut, false, Request.RemoteIpAddress);
-                HttpContext.Current.Items.Add(FortressConstants.LockoutItemKey, true);
-                return SignInStatus.RequiresVerification;
-            }
-            db.AddNewSignInEvent(userName, result, false, Request.RemoteIpAddress);
+            
 
             return result;
         }
@@ -63,11 +56,7 @@ namespace Orc.Fortress.UserManagement
             bool rememberBrowser)
         {
             var result = await base.TwoFactorSignInAsync(provider, code, isPersistent, rememberBrowser);
-
-            var db = new FortressDatabase();
-
-            db.AddNewSignInEvent(this.GetVerifiedUserId(), result, true, Request.RemoteIpAddress);
-
+            
             return result;
         }
     }

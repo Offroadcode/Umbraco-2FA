@@ -1,22 +1,55 @@
-angular.module('umbraco').controller('fortress.dashboard.controller', function($scope, $routeParams) {
+angular.module('umbraco').controller('fortress.dashboard.controller', function($scope, $routeParams,$http) {
 
-    $scope.hackNames = function() {
-        // Can't override some localized titles in dictionary. This is a workaround for now.
-        window.setTimeout(function() {
-            var header = document.querySelector('*[name="headerNameForm"] + .umb-panel-header-name');
-            if (header) {
-                header.innerHTML = "Umbraco 2FA";
-            } 
-            var tabs = document.querySelector('.umb-panel-header-content-wrapper .umb-nav-tabs');
-            if (tabs) {
-                tabs.className += " umb2fa-hide-tab";
-            }
-        }, 10);
-    };
+    $scope.currentPage = "home"; // home, setupWizard
+    
+       $scope.data = null;
+       $scope.isLoading = true;
+       $scope.settingsLoaded = false;
 
-    $scope.save = function() {
-    };
+       $scope.setupWizard = {googleAuthenticatorImage:"",googleAuthenticatorManual:"",lastDidFail: false};
+       $scope.loadMySettings = function() {
+                              $scope.isLoading = true;
+            return $http.get('/umbraco/backoffice/Umbraco2FA/UserSettingsApi/GetMySettings').then(function(response) {
+                $scope.data = response.data;
+                   $scope.settingsLoaded = true;
+                   $scope.isLoading = false;
+            });
+        };
+        $scope.setupAccount= function(){
+            $scope.isLoading = true
+            return $http.post('/umbraco/backoffice/Umbraco2FA/UserSettingsApi/SetupAuthenticator').then(function(response) {
+                $scope.setupWizard.googleAuthenticatorImage = response.data.Image;
+                $scope.setupWizard.googleAuthenticatorManual = response.data.ManualEntryCode;
+                $scope.currentPage = "setupWizard";
+                $scope.isLoading = false
+            });
+        };
+        $scope.removeAuthenticator= function(){
+            $scope.isLoading = true
+            return $http.post('/umbraco/backoffice/Umbraco2FA/UserSettingsApi/RemoveTwoFactor').then(function(response) {
+                $scope.data = response.data;
+                $scope.currentPage = "home";
+                $scope.isLoading = false
+            });
+        };
+        $scope.verifyGoogleAuthenticator= function(otp){
+            $scope.isLoading = true
+            return $http.post('/umbraco/backoffice/Umbraco2FA/UserSettingsApi/ValidateGoogleAuthSetup?twoFactorCode='+otp).then(function(response) {
+                console.log("verifiy repsonse@:", response);
+                if(response.data.IsValid === true){
+                    console.log("1");
+                    $scope.data = response.data.Settings;
+                    $scope.currentPage = "home";
+                    $scope.isLoading = false;
+                }else{
+                    console.log("2");                    $scope.isLoading = false;
 
-    $scope.hackNames();
+                       $scope.currentPage = "setupWizard";
+                        $scope.setupWizard.lastDidFail = true;
+                }
+                
+            });
+        };
+        $scope.loadMySettings();
 }); 
  

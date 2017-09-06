@@ -11,6 +11,8 @@ using umbraco;
 using Umbraco.Web;
 using Umbraco.Web.Models.ContentEditing;
 using Umbraco.Web.WebApi.Filters;
+using Orc.Fortress.Controllers;
+using Umbraco.Web.Security;
 
 namespace Orc.uProtect.Controllers
 {
@@ -71,7 +73,9 @@ namespace Orc.uProtect.Controllers
                     var response = Request.CreateResponse(HttpStatusCode.OK, userDetail);
 
                     //ensure the user is set for the current request
-                    Request.SetPrincipalForRequest(user);
+                    //Request.SetPrincipalForRequest(user);
+                    //
+
 
                     return response;
                     break;

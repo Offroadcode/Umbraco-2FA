@@ -210,3 +210,6 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+TestSite/Web.config
+TestSite/App_Data/TEMP/
+TestSite/App_Data/Logs/

@@ -19,11 +19,11 @@ namespace Orc.Fortress.Startup
                 //Create DB table - and set overwrite to false
                 db.CreateTable<FortressUser2FASettings>(false);
             }
-            if (!db.TableExist(FortressConstants.TableNames.FortressLoginEvents))
+         /*   if (!db.TableExist(FortressConstants.TableNames.FortressLoginEvents))
             {
                 //Create DB table - and set overwrite to false
                 db.CreateTable<FortressLoginEvent>(false); 
-            }
+            }*/
             if (!db.TableExist(FortressConstants.TableNames.FortressSettings))
             {
                 //Create DB table - and set overwrite to false
@@ -31,11 +31,11 @@ namespace Orc.Fortress.Startup
 
                 FortressSettingEntry.InsertInitialSettings(ctx.Database);
             }
-            if (!db.TableExist(FortressConstants.TableNames.FortressFirewallEntry))
+          /*  if (!db.TableExist(FortressConstants.TableNames.FortressFirewallEntry))
             {
                 //Create DB table - and set overwrite to false
                 db.CreateTable<FortressFirewallEntry>(false);
-            }
+            }*/
             FortressContext.Initialize();
         }
     }

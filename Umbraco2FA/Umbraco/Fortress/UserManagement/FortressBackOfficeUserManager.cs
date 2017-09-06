@@ -52,7 +52,6 @@ namespace Orc.Fortress.UserManagement
             //in this demo we are using the custom AcceptAnyCodeProvider - which literally accepts any code - do not actually use this!
 
             var dataProtectionProvider = options.DataProtectionProvider;
-            manager.RegisterTwoFactorProvider("SMS", new SMSCodeProvider(dataProtectionProvider.Create("SMS")));
             manager.RegisterTwoFactorProvider("GoogleAuthenticator", new GoogleAuthenticatorProvider(dataProtectionProvider.Create("GoogleAuthenticator")));
 
             return manager;
@@ -77,20 +76,7 @@ namespace Orc.Fortress.UserManagement
             var user = ApplicationContext.Current.Services.UserService.GetByUsername(username);
             var database = new FortressDatabase();
 
-            var accountIsLockedFlag = HttpContext.Current.Items[FortressConstants.LockoutItemKey] as bool?;
-            if (accountIsLockedFlag.HasValue && accountIsLockedFlag.Value)
-            {
-                return "/App_Plugins/Umbraco2FA/backoffice/TwoFactor/AccountLockout.html";
-            }
-
             var details = database.GetUserDetails(user.Id);
-
-            if (details == null || !details.IsValidated)
-            {
-                //user needs setting up
-                return "/App_Plugins/Umbraco2FA/backoffice/TwoFactor/Setup.html";
-            }
-
             var provider = TwoFactorProviders[details.Provider];
             //var providerDetails = provider as IuProtectTwoFactorProvider;
             if (provider!= null)
@@ -101,4 +87,5 @@ namespace Orc.Fortress.UserManagement
             
         }
     }
+
 }

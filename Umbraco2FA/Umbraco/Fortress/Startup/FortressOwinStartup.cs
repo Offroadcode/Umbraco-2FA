@@ -33,12 +33,9 @@ namespace Orc.Fortress.Startup
         protected override void ConfigureServices(IAppBuilder app)
         {
             app.SetUmbracoLoggerFactory();
-            LogHelper.Info(typeof (FortressOwinStartup), "Fortress: Startup");
-
-            app.SetUmbracoLoggerFactory();
 
             var applicationContext = ApplicationContext.Current;
-
+            LogHelper.Info(typeof(FortressOwinStartup), "Fortress: Startup");
             //Here's where we assign a custom UserManager called MyBackOfficeUserManager
             app.ConfigureUserManagerForUmbracoBackOffice<FortressBackOfficeUserManager, BackOfficeIdentityUser>(
                 applicationContext,
@@ -54,10 +51,7 @@ namespace Orc.Fortress.Startup
                     return userManager;
                 });
 
-            app.CreatePerOwinContext<BackOfficeSignInManager>(
-          (options, context) =>
-              FortressBackOfficeSignInManager.Create(options, context,
-                  app.CreateLogger(typeof(BackOfficeSignInManager).FullName)));
+            
         }
 
 
@@ -66,23 +60,8 @@ namespace Orc.Fortress.Startup
         {
             LogHelper.Info(typeof (FortressOwinStartup), "OFFROADCODE: ConfigureMiddleware");
 
-            //you can use the defaults - which executes what is listed below, however if you require
-            // a specialized order, or something else you can register the defaults yourself as per below.
-
             app.UseTwoFactorSignInCookie(global::Umbraco.Core.Constants.Security.BackOfficeTwoFactorAuthenticationType, TimeSpan.FromMinutes(5));
-            app.Use<FortressOWINFirewall>(app.CreateLogger<FortressOWINFirewall>());
-
-
             base.ConfigureMiddleware(app);
-            //Ensure owin is configured for Umbraco back office authentication. If you have any front-end OWIN
-            // cookie configuration, this must be declared after it.
-
-            ////DEFAULT:
-            //app
-            //    .UseUmbracoBackOfficeCookieAuthentication(ApplicationContext, PipelineStage.Authenticate)
-            //    .UseUmbracoBackOfficeExternalCookieAuthentication(ApplicationContext, PipelineStage.Authenticate)
-            //    .UseUmbracoPreviewAuthentication(ApplicationContext, PipelineStage.Authorize)
-            //    .FinalizeMiddlewareConfiguration();
         }
     }
     

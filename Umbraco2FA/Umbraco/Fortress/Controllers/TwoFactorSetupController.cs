@@ -8,6 +8,7 @@ using System.Linq;
 using Orc.Fortress.Database.Models;
 using Google.Authenticator;
 using Orc.Fortress.Logic;
+using System.Web;
 
 namespace Orc.Fortress.Controllers
 {
@@ -23,13 +24,7 @@ namespace Orc.Fortress.Controllers
             var providers = UserManager.TwoFactorProviders.Keys.ToList();
             var filteredList = new List<string>();
             foreach(string provider in providers) {
-                if (provider == "SMS")
-                {
-                    if (databaseSettings.SMS_Enabled)
-                    {
-                        filteredList.Add(provider);
-                    }
-                } else if (provider == "GoogleAuthenticator")
+                if (provider == "GoogleAuthenticator")
                 {
                     if (databaseSettings.GoogleAuthenticator_Enabled)
                     {
@@ -52,22 +47,25 @@ namespace Orc.Fortress.Controllers
             {
                 throw new Exception("Google Authenticator is disabled");
             }
-            var user = SignInManager.GetVerifiedUserId();
-            
+            //var user =  SignInManager.AuthenticationManager.User.Identity.Name;
+            //SignInManager.AuthenticationManager.AuthenticationResponseGrant.Identity.Name
+
+            var userId = (HttpContext.Current.Session["TWOFACTORUSER"] as int?).Value;
+
             TwoFactorAuthenticator tfa = new TwoFactorAuthenticator();
 
             var secretKey = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
 
-            var setupInfo = tfa.GenerateSetupCode(CustomDatabase.GetSettingsFromDatabase().GoogleAuthenticator_Name, user.ToString(), secretKey, 300, 300);
+            var setupInfo = tfa.GenerateSetupCode(CustomDatabase.GetSettingsFromDatabase().GoogleAuthenticator_Name, userId.ToString(), secretKey, 300, 300);
 
-            var details = CustomDatabase.GetUserDetails(user);
+            var details = CustomDatabase.GetUserDetails(userId);
             if (details != null && details.IsValidated)
             {
                 throw new UnauthorizedAccessException("This account has already setup GoogleAuthenticator");
             }
             var isNew = details == null;
             details = new FortressUser2FASettings();
-            details.UserId = user;
+            details.UserId = userId;
             details.Provider = "GoogleAuthenticator";
             details.Configuration = secretKey;
             details.IsValidated = false;
@@ -86,43 +84,6 @@ namespace Orc.Fortress.Controllers
             var response = Request.CreateResponse(HttpStatusCode.OK, new { image = qrCodeImageUrl, manualEntryCode = manualEntrySetupCode });
             return response;
         }
-        public HttpResponseMessage SetupSMS(string number)
-        {
-            var user = SignInManager.GetVerifiedUserId();
-            var details = CustomDatabase.GetUserDetails(user);
-            if (details != null && details.IsValidated)
-            {
-                throw new UnauthorizedAccessException("This account has already setup SMS");
-            }
-            var isNew = details == null;
-            details = new FortressUser2FASettings();
-            details.UserId = user;
-            details.Provider = "SMS";
-            details.Configuration = number;
-            details.IsValidated = false;
-
-            lock (syncLock)
-            {
-                var code = _random.Next(999999).ToString();
-                details.CurrentCode = code;
-                details.CurrentCodeGenerated = DateTime.UtcNow;
-            }
-        
-            if (isNew)
-            {
-                CustomDatabase.Insert(details);
-            }
-            else
-            {
-                CustomDatabase.Update(details);
-            }
-            var settings = CustomDatabase.GetSettingsFromDatabase();
-            var SmsProvider = FortressContext.GetCurrentSmsProvider();
-
-            SmsProvider.SendSms(details.Configuration, string.Format(settings.SMS_MessageFormat, details.CurrentCode));
-
-            var response = Request.CreateResponse(HttpStatusCode.OK, new {token ="123456"});
-            return response;
-        }
+     
     }
 }
