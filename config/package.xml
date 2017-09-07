@@ -28,16 +28,16 @@
   <control />
 	<Actions>
 		<Action runat="install" alias="addDashboardSection" dashboardAlias="Our.Umbraco.FortressDashboard">
-			 <section>
-				<areas>
-				  <area>umbraco2FA</area>
+      <section>
+        <areas>
+				  <area>content</area>
 				</areas>
-				<tab caption="Umbraco 2FA">
-				  <control>/App_Plugins/Umbraco2FA/views/dashboard.html</control>
-				</tab>
-			 </section>
-		 </Action>
-     <Action runat="install" alias="OwinStartupInstallAction"> </Action>
+        <tab caption="Umbraco 2FA">
+          <control>/App_Plugins/Umbraco2FA/views/dashboard.html</control>
+        </tab>
+      </section>
+    </Action>
+    <Action runat="install" alias="OwinStartupInstallAction"> </Action>
 	</Actions>
   <files>
   	<% files.forEach(function(file) { %>
