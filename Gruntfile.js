@@ -54,8 +54,6 @@ module.exports = function(grunt) {
             'Umbraco2FA/resources/TwoFactor.resource.js',
             'Umbraco2FA/controllers/edit.controller.js',
             'Umbraco2FA/controllers/umbraco2FA.dashboard.controller.js',
-            'Umbraco2FA/controllers/TwoFactor/umbraco2FA.setup.controller.js',
-            'Umbraco2FA/controllers/TwoFactor/umbraco2FA.smsProvider.controller.js',
             'Umbraco2FA/controllers/TwoFactor/umbraco2FA.twoFactorLogin.controller.js',
             'Umbraco2FA/controllers/TwoFactor/umbraco2FA.twofactor.controller.js'
         ],
