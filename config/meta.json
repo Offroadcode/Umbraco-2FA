@@ -1,8 +1,8 @@
 {
 	"name": "Umbraco2FA",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"url": "https://github.com/Offroadcode/Umbraco-2FA",
-	"author": "Offroadcode - Janae Cram - Pete Duncanson - Stephen Roberts - Kyle Weems - James Young - Et. Al.",
+	"author": "Offroadcode - Janae Cram - Pete Duncanson - Jack Penney - Stephen Roberts - Kyle Weems - James Young - Et. Al.",
 	"authorUrl": "http://offroadcode.com/",
 	"license": "MIT License",
 	"licenseUrl": "https://opensource.org/licenses/MIT"
