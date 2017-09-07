@@ -1,6 +1,6 @@
-# Umbraco 2FA &middot; ![version](https://img.shields.io/badge/version-1.0.0-green.svg)
+# Umbraco 2FA &middot; ![version](https://img.shields.io/badge/version-2.0.0-orange.svg)
 
-Umbraco 2FA is a two factor authentication solution for Umbraco 7.6+ by [Offroadcode](https://offroadcode.com). With it you can configure your Umbraco site to utilize either Google Authenticator or an SMS provider to provide two factor authentication when logging into the Umbraco backoffice.
+Umbraco 2FA is a two factor authentication solution for Umbraco 7.6+ by [Offroadcode](https://offroadcode.com). With it you can configure your Umbraco site to utilize Google Authenticator to provide two factor authentication when logging into the Umbraco backoffice.
 
 ## Installation & Setup
 
@@ -18,51 +18,28 @@ You can install the Umbraco 2FA package to Umbraco via these following steps:
 
 ### Setting Up Authentication
 
-By default, Umbraco 2FA will be enabled with Google Authenticator. By navigating to the Umbraco2FA section in the back office, you can edit your 2FA options.
+The Umbraco 2FA tab will appear in the content section of the backoffice after installation.
 
-#### Configuring Google Authenticator
+Each user may enable 2FA for their account by performing the following steps:
 
-Google Authenticator is a 2FA tool by Google that your users can download for for free onto their phones for added security when logging onto your site. (More details below in "How to Use".)
+1. Go to the Umbraco 2FA tab in Content.
+2. Click on the 'Setup 2FA' button.
+3. Open your Google Authenticator app on your smartphone ([Google Play](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2) for your Android phone or [iTunes](https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8) for your iPhone), or a similar authenticator app, and select to add a new account by either barcode scan or manual entry.
+4. If using barcode scan, scan the QR code on your screen. If using manual entry, enter the long string beneath the QR code.
+5. Your Google Authenticator will display a 6-digit code. Enter this ento the text field and click "Verify".
+6. Congrats! You now have 2FA configured on your Umbraco account.
 
-To set it up:
+To remove 2FA on your account, you can return to the Umbraco 2FA tab and click "Remove Authenticator".
 
-1. In the Umbraco 2FA section, click on "Google Authenticator".
-2. You may alter the site name, and toggle this authenticator option on or off via the "Enabled" button. Click Save to complete.
+### Disabling 2FA For Users as an Admin
 
-#### Configuring An SMS Provider
+You can give specific users access to an "Umbraco 2FA" section with some additional admin features. To do so, go to the users section, select a user, and make sure the "Umbraco 2FA" section is checked before saving.
 
-Functionality for implementing an SMS provider requires a developer to write code for the sending of the SMS itself. We are are open to any pull requests for support for various suppliers.
+The Umbraco 2FA section contains a page called "Google Authenticator". Inside it you can rename the site for the purpose of the label shown in the authenticator app. You can also enable or disable 2FA for the whole site, or selectively remove 2FA for a specific user (which is useful if they lose access to their authenticator and need to gain site access).
 
-If you are doing such, your SMS provider should implement Orc.Fortress.SMSProvider.BaseSMSProvider.
+## Logging In
 
-You will have to implement a single method, `void SendSms(string number, string message)`. The number is the phone number to send the message to, and the message is the complete text of the SMS message to send.
-
-##### Settings
-
-SMS providers will probably have some settings with them such as API keys, etc. On your implementation of the SMS provider, you can have public properties which will be auto populated from the settings within the umbraco backend (e.g.
-[FromFortressSettings("This is the username for you account with the provider")]
-public string UserName { get; set; }).
-
-#### Disabling 2FA
-
-You can turn off two-factor authentication for your site as follows:
-
-1. In the Umbraco 2FA section, click on "Google Authenticator".
-2. Uncheck "Enabled". Save.
-3. Navigate to "SMS".
-4. Uncheck "Enabled". Save.
-
-## How To Use the Two Factor Authentication
-
-### Initial Configuration
-
-When a user tries to log into an Umbraco 2FA-protected installation for the first time, they will be prompted to choose the type of authenticator they wish to use, and then confirm with an authenticator-specific code before proceeding.
-
-One option is to use Google Authenticator. It's a free 2FA tool from Google that you can download for free from [Google Play](https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2) for your Android phone or [iTunes](https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8) for your iPhone. Once you have it downloaded, you can follow the instructions on your screen.
-
-### Logging In
-
-When a user logs into an Umbraco installation protected with Umbraco 2FA, they will first enter their username and password like normal. After that, they'll be prompted to enter a 2FA code before they'll be granted access.
+When a user's account is configured with 2FA, any time they log into their account they will be prompted with a request for their Two Factor authentication code after entering their username and password. This code will be displayed on the authenticator that they are using.
 
 ## Contributing Code to Umbraco 2FA
 
@@ -101,5 +78,3 @@ You can also watch for changes using:
 If you want to build the package file (into a pkg folder), use:
 
     grunt umbraco
-
-However, there is currently a problem with loading local package files in Umbraco and we'll need 7.5.8+ (which addresses this bug).
