@@ -1,10 +1,44 @@
-<div ng-controller="fortress.dashboard.controller">
-    <form>
+<div class="welcome-dashboard" ng-controller="fortress.dashboard.controller">
+
         <h2>Umbraco 2FA</h2>
+        
+        <umb-load-indicator ng-show="isLoading"></umb-load-indicator>
+
+        <div ng-show="currentPage == 'home'">
+            <div ng-show="settingsLoaded">
+                <div ng-show="data.IsSetup">
+                    <h1>You are setup!</h1>
+                      <a href class="btn btn-danger" ng-click="removeAuthenticator()"><i class="icon-unlocked"></i> <localize key="removeautenticator">Remove Autenticator</localize></a>
+                </div>
+                <div ng-show="!data.IsSetup">
+                    <h1>You are NOT setup!</h1>
+                    <a href class="btn btn-primary" ng-click="setupAccount()"><i class="icon-locked"></i> <localize key="setup">Setup</localize></a>
+                </div>
+            </div>
+        </div>
+        <div ng-show="currentPage == 'setupWizard'">
+            <div ng-show="!isLoading">
+              
+                    <form method="POST" name="configureGoogleAuthenticatorForm" ng-submit="verifyGoogleAuthenticator(googleAuthenticatorOTP)">
+                            <p>Google Authenticator is a 2FA tool by Google that you can download for free from <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target="_blank">Google Play</a> for your Android phone or <a href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8" target="_blank">iTunes</a> for your iPhone.
+                            <p>Once you've downloaded Google Authenticator, please open the app and scan this image, then enter the provided code.</p>
+                            <p></p>
+                            <div class="control-group">
+                                <img id="imgQrCode" ng-src="{{setupWizard.googleAuthenticatorImage}}" />
+                                <p>ManualSetup: {{setupWizard.googleAuthenticatorManual}}</p>
+                                <div ng-show="setupWizard.lastDidFail">error, check your code and try again!</div>
+                            </div>
+                            <div class="control-group">
+                                <input type="text" ng-model="googleAuthenticatorOTP" name="googleAuthenticatorOTP" class="input-xlarge" placeholder="XXXXXX" />
+                            </div>
+                            <div>
+                                <button type="submit" class="btn">Verify</button>
+                            </div>
+                        </form>
+                 
+            </div>
+        </div>
+
+
         <p>Umbraco 2FA is a two factor authentication solution for Umbraco 7.6+ by <a href="http://offroadcode.com" target="_blank">Offroadcode <i ng-class="value.icon" class="icon-out"></i></a>. With it you can configure your Umbraco site to utilize either Google Authenticator or an SMS provider to provide two factor authentication when logging into the Umbraco backoffice.</p>
-        <h3>Setting Up Authentication</h3>
-        <p>By default, Umbraco 2FA is enabled with Google Authenticator support. You can disable this through the "Google Authenticator" link in the navigation to the left.</p>
-        <p>Umbraco 2FA also supports adding your own SMS provider, although you will have to write your own code for the sending of the SMS message itself.</p>
-        <p><a href="https://github.com/Offroadcode/Umbraco-2FA#setting-up-authentication" target="_blank">Umbraco 2FA Setup Instructions on GitHub <i ng-class="value.icon" class="icon-out"></i></a></p>
-    </form>
 </div>

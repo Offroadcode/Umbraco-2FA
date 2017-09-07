@@ -1,16 +1,28 @@
 ﻿<div ng-controller="fortress.setup.controller">
     <div id="login" class="umb-modalcolumn umb-dialog" >
         <div class="login-overlay__logo"> 
-            <img ng-src="assets/img/application/logo.png" ng-srcset="assets/img/application/logo@2x.png 2x, assets/img/application/logo@3x.png 3x" src="assets/img/application/logo.png" srcset="assets/img/application/logo@2x.png 2x, assets/img/application/logo@3x.png 3x">
+            <img 
+                ng-src="assets/img/application/logo.png" 
+                ng-srcset="assets/img/application/logo@2x.png 2x, assets/img/application/logo@3x.png 3x" 
+                src="assets/img/application/logo.png" 
+                srcset="assets/img/application/logo@2x.png 2x, assets/img/application/logo@3x.png 3x" 
+            />
         </div>
         <div class="umb-login-container">
             <div class="form">
                 <div ng-show="view == 'providerSelection'">
                     <h1 class="ng-binding">Specify your two-factor authentication option</h1>
-                    <p>Due to the password policy of this website, you have to select an two-factor authentication option. This second factor makes sure that even if your password gets comprimised, another user cannot access your account.<br><br>
+                    <p>Due to the password policy of this website, you have to 
+                        select an two-factor authentication option. This second 
+                        factor makes sure that even if your password gets comprimised, 
+                        another user cannot access your account.<br><br>
                         Click on of the allowed authentication options:
                     </p>
-                    <div ng-repeat="provider in availableProviders" class="twoFactorProvider" ng-click="selectProvider(provider)">
+                    <div 
+                        ng-repeat="provider in availableProviders" 
+                        class="twoFactorProvider" 
+                        ng-click="selectProvider(provider)"
+                    >
                         <h3>
                             <input type="radio" id="email" name="twofactor">
                             <label for="email">{{provider}}</label>

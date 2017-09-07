@@ -9,13 +9,14 @@
                 <div ng-if="step=='loading'">
                     <h1>Loading</h1>
                 </div>
-                <div>
+                <div ng-if="step=='code'">
                     <p>Please enter your two factor authentication code.</p>
-                    <p>If you are using Google Authenticator, please open that app and enter the code there.</p>
-                    <p>If you are using an SMS provider, please enter the number that is being texted to your phone.</p>
+                    <p>Please open your authenticator app on your mobile device</p>
                     <form method="POST" name="twoFactorCodeForm" ng-submit="validate(provider, code)" ng-if="step=='code'">
                         <div class="control-group">
-                            <input type="text" name="code" class="input-xlarge" placeholder="2fa code" ng-model="code" />
+                            <input type="text" name="code" class="input-xlarge" ng-class="{error: didFail}" placeholder="2fa code" ng-model="code" />
+                            <div ng-if="didFail" class="text-error">{{errorMsg}}</div>
+
                         </div>
                         <button type="submit" class="btn">Validate</button>
                     </form>
