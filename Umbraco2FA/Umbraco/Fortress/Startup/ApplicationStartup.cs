@@ -29,7 +29,7 @@ namespace Orc.Fortress.Startup
                 //Create DB table - and set overwrite to false
                 db.CreateTable<FortressSettingEntry>(false);
 
-                FortressSettingEntry.InsertInitialSettings(ctx.Database);
+                FortressSettingEntry.InsertInitialSettings(ctx.Database, ApplicationContext.Current.DatabaseContext.SqlSyntax);
             }
           /*  if (!db.TableExist(FortressConstants.TableNames.FortressFirewallEntry))
             {

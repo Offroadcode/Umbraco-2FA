@@ -19,6 +19,7 @@ using ILogger = Umbraco.Core.Logging.ILogger;
 using Orc.Fortress.Startup;
 using Orc.Fortress.UserManagement;
 using Microsoft.AspNet.Identity;
+using Umbraco.Core.Configuration;
 
 [assembly: OwinStartup("FortressOwinStartup", typeof (FortressOwinStartup))]
 
@@ -42,15 +43,17 @@ namespace Orc.Fortress.Startup
                 (options, context) =>
                 {
                     var membershipProvider = Umbraco.Core.Security.MembershipProviderExtensions.GetUsersMembershipProvider().AsUmbracoMembershipProvider();
-
+                   
                 //Create the custom MyBackOfficeUserManager
                 var userManager = FortressBackOfficeUserManager.Create(options,
                         applicationContext.Services.UserService,
+                        applicationContext.Services.EntityService,
                         applicationContext.Services.ExternalLoginService,
-                        membershipProvider);
+                        membershipProvider,
+                         UmbracoConfig.For.UmbracoSettings().Content);
                     return userManager;
                 });
-
+            
             
         }
 

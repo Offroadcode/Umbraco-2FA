@@ -201,7 +201,7 @@ module.exports = function(grunt) {
   msbuild: {
       options: {
         stdout: true,
-        verbosity: 'quiet',
+        verbosity: 'normal',
         maxCpuCount: 4,
         version: 4.0,
         buildParameters: {
@@ -210,7 +210,7 @@ module.exports = function(grunt) {
         }
     },
     dist: {
-        src: ['Umbraco2FA/Umbraco/Fortress/Fortress.csproj'],
+        src: ['Umbraco2FA/Umbraco/Fortress/Orc.Fortress.csproj'],
         options: {
             projectConfiguration: 'Debug',
             targets: ['Clean', 'Rebuild'],

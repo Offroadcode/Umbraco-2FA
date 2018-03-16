@@ -1,14 +1,7 @@
 ﻿using Google.Authenticator;
 using Orc.Fortress.Attributes;
-
-using Orc.Fortress.Cache;
-using Orc.Fortress.Database;
 using Orc.Fortress.Database.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using static Umbraco.Core.Constants;
 
 namespace Orc.Fortress.BackOffice.Controllers
 {

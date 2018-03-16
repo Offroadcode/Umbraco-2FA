@@ -11,17 +11,20 @@ using Umbraco.Web;
 using Umbraco.Web.Cache;
 using System.Collections.Generic;
 using Orc.Fortress;
+using Umbraco.Core.Persistence.SqlSyntax;
 
 namespace Orc.Fortress.Database
 {
     public class FortressDatabase
     {
+        private static readonly ISqlSyntaxProvider SqlSyntaxProvider =
+                   ApplicationContext.Current.DatabaseContext.SqlSyntax;
         public FortressUser2FASettings GetUserDetails(int id)
         {
             var db = ApplicationContext.Current.DatabaseContext.Database;
-
+            var query = new Sql().Select("*").From<FortressUser2FASettings>(SqlSyntaxProvider).Where<FortressUser2FASettings>(x => x.UserId == id, SqlSyntaxProvider);
             var results =
-                db.FirstOrDefault<FortressUser2FASettings>("SELECT * FROM fortressUser2FASettings WHERE UserId = @0", id);
+                db.FirstOrDefault<FortressUser2FASettings>(query);
 
             return results;
         }
@@ -41,8 +44,9 @@ namespace Orc.Fortress.Database
         public FortressSettings GetSettingsFromDatabase()
         {
                 var db = ApplicationContext.Current.DatabaseContext.Database;
+            var query = new Sql().Select("*").From<FortressSettingEntry>(SqlSyntaxProvider);
 
-                var results = db.Fetch<FortressSettingEntry>("SELECT * FROM FortressSettings");
+                var results = db.Fetch<FortressSettingEntry>(query);
                 var model = new FortressSettings(results);
             return model;
         }
