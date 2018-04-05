@@ -15,6 +15,7 @@ using Umbraco.Core.Security;
 using Umbraco.Core.Services;
 using Umbraco.Web;
 using Umbraco.Web.Security.Identity;
+using Umbraco.Core.Configuration.UmbracoSettings;
 
 namespace Orc.Fortress.UserManagement
 {
@@ -36,16 +37,19 @@ namespace Orc.Fortress.UserManagement
         public static FortressBackOfficeUserManager Create(
             IdentityFactoryOptions<FortressBackOfficeUserManager> options,
             IUserService userService,
+             IEntityService entitiyService,
             IExternalLoginService externalLoginService,
-            MembershipProviderBase membershipProvider)
+            MembershipProviderBase membershipProvider,
+            IContentSection content)
         {
             if (options == null) throw new ArgumentNullException("options");
             if (userService == null) throw new ArgumentNullException("userService");
             if (externalLoginService == null) throw new ArgumentNullException("externalLoginService");
 
-            var manager = new FortressBackOfficeUserManager(new FortressBackOfficeUserStore(userService, externalLoginService, membershipProvider));
-
-            manager.InitUserManager(manager, membershipProvider, options.DataProtectionProvider);
+            var manager = new FortressBackOfficeUserManager(new FortressBackOfficeUserStore(userService, entitiyService, externalLoginService, membershipProvider));
+            
+            //manager.InitUserManager(manager, membershipProvider, contentSectionConfig, options as BackOfficeUserManager);
+            manager.InitUserManager(manager, membershipProvider, options.DataProtectionProvider, content);
 
 
             //Here you can specify the 2FA providers that you want to implement, 
@@ -56,6 +60,8 @@ namespace Orc.Fortress.UserManagement
 
             return manager;
         }
+
+        
         /// <summary>
         /// Override to return true
         /// </summary>

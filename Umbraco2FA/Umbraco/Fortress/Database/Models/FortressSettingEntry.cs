@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Umbraco.Core.Persistence;
 using Umbraco.Core.Persistence.DatabaseAnnotations;
+using Umbraco.Core.Persistence.SqlSyntax;
 
 namespace Orc.Fortress.Database.Models
 {
@@ -48,12 +49,12 @@ namespace Orc.Fortress.Database.Models
         [NullSetting(NullSetting = NullSettings.Null)]
         public bool? BoolValue { get; set; }
 
-        public static void InsertInitialSettings(UmbracoDatabase db)
+        public static void InsertInitialSettings(UmbracoDatabase db, ISqlSyntaxProvider sqlSyntaxProvider)
         {
             var data = FortressSettings.GetDefaultSettings();
             
 
-            db.BulkInsertRecords(data);
+            db.BulkInsertRecords(data, sqlSyntaxProvider);
         }
     }
 }

@@ -52,12 +52,7 @@ namespace Orc.Fortress.UserManagement
             return result;
         }
 
-        public override async Task<SignInStatus> TwoFactorSignInAsync(string provider, string code, bool isPersistent,
-            bool rememberBrowser)
-        {
-            var result = await base.TwoFactorSignInAsync(provider, code, isPersistent, rememberBrowser);
-            
-            return result;
-        }
+      
+    
     }
 }

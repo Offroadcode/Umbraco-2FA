@@ -15,9 +15,10 @@ namespace Orc.Fortress.UserManagement
     /// </summary>
     public class FortressBackOfficeUserStore : BackOfficeUserStore
     {
-        public FortressBackOfficeUserStore(IUserService userService, IExternalLoginService externalLoginService, MembershipProviderBase usersMembershipProvider)
-            : base(userService, externalLoginService, usersMembershipProvider)
+        public FortressBackOfficeUserStore(IUserService userService, IEntityService entitiyService, IExternalLoginService externalLoginService, MembershipProviderBase usersMembershipProvider)
+            : base(userService, entitiyService, externalLoginService, usersMembershipProvider)
         {
+            
         }
 
         /// <summary>

@@ -13,7 +13,7 @@ namespace Orc.Fortress.BackOffice.Controllers
 
         private BackOfficeUserManager<BackOfficeIdentityUser> _userManager;
 
-        protected BackOfficeUserManager<BackOfficeIdentityUser> UserManager
+        protected new  BackOfficeUserManager<BackOfficeIdentityUser> UserManager
         {
             get { return _userManager ?? (_userManager = TryGetOwinContext().Result.GetBackOfficeUserManager()); }
         }
