@@ -1,4 +1,4 @@
-# Umbraco 2FA &middot; ![version](https://img.shields.io/badge/version-2.0.0-orange.svg)
+# Umbraco 2FA &middot; ![version](https://img.shields.io/badge/version-2.1.0-orange.svg)
 
 Umbraco 2FA is a two factor authentication solution for Umbraco 7.6+ by [Offroadcode](https://offroadcode.com). With it you can configure your Umbraco site to utilize Google Authenticator to provide two factor authentication when logging into the Umbraco backoffice.
 
