@@ -1,4 +1,8 @@
-# Umbraco 2FA &middot; ![version](https://img.shields.io/badge/version-2.1.0-orange.svg)
+<div align="center">
+    <img src="https://img.shields.io/badge/version-2.1.0-green.svg" />
+    <a href="https://our.umbraco.org/projects/backoffice-extensions/umbraco-2fa/"><img src="https://img.shields.io/badge/our-umbraco-orange.svg"></a>
+    <h1>Umbraco 2FA</h1>
+</div>
 
 Umbraco 2FA is a two factor authentication solution for Umbraco 7.6+ by [Offroadcode](https://offroadcode.com). With it you can configure your Umbraco site to utilize Google Authenticator to provide two factor authentication when logging into the Umbraco backoffice.
 
@@ -14,11 +18,10 @@ You can install the Umbraco 2FA package to Umbraco via these following steps:
 2. In your Umbraco back office, navigate to Developer > Packages and click the "Install Local" icon in the upper right of the page.
 3. Either drag the zip file onto the provided frame or click on the "or click here to choose files" link and select the zip file using your file explorer.
 4. Accept the terms of use and hit "Install Package". Hit "Finish" once prompted.
-5. Navigate to the Users, and select an user or user type that you wish to have access to the Umbraco 2FA settings. In the "Sections" part of the user profile, make sure that Umbraco2FA is checked, and save.
 
 ### Setting Up Authentication
 
-The Umbraco 2FA tab will appear in the content section of the backoffice after installation.
+The Umbraco 2FA tab will appear as a tab in the Content section of the backoffice after installation.
 
 Each user may enable 2FA for their account by performing the following steps:
 
@@ -30,12 +33,6 @@ Each user may enable 2FA for their account by performing the following steps:
 6. Congrats! You now have 2FA configured on your Umbraco account.
 
 To remove 2FA on your account, you can return to the Umbraco 2FA tab and click "Remove Authenticator".
-
-### Disabling 2FA For Users as an Admin
-
-You can give specific users access to an "Umbraco 2FA" section with some additional admin features. To do so, go to the users section, select a user, and make sure the "Umbraco 2FA" section is checked before saving.
-
-The Umbraco 2FA section contains a page called "Google Authenticator". Inside it you can rename the site for the purpose of the label shown in the authenticator app. You can also enable or disable 2FA for the whole site, or selectively remove 2FA for a specific user (which is useful if they lose access to their authenticator and need to gain site access).
 
 ## Logging In
 

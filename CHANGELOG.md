@@ -8,8 +8,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Added
 
-### Changed
+* Added new dictionary items for the lang files.
 
 ### Fixed
+
+* Fixed issues with compatibility with post-7.6 Umbraco due to breaking changes.
 
 ### Removed

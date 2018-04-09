@@ -10,64 +10,64 @@ module.exports = function(grunt) {
     basePath: path.join('<%= dest %>', 'App_Plugins', '<%= pkgMeta.name %>'),
 
     watch: {
-      options: {
-        spawn: false,
-        atBegin: true
-      },
-      dll: {
-        files: ['Umbraco2FA/Umbraco/Fortress/**/*.cs'] ,
-        tasks: ['msbuild:dist', 'copy:dll']
-      },
-      js: {
-        files: ['Umbraco2FA/**/*.js'],
-        tasks: ['concat:dist']
-      },
-      html: {
-        files: ['Umbraco2FA/**/*.html'],
-        tasks: ['copy:html', 'copy:treeHtml']
-      },
-      lang: {
-        files: ['Umbraco2FA/lang/*.xml'],
-        tasks: ['copy:lang']
-      },
-      sass: {
-        files: ['Umbraco2FA/**/*.scss'],
-        tasks: ['sass', 'copy:css']
-      },
-      css: {
-        files: ['Umbraco2FA/**/*.css'],
-        tasks: ['copy:css']
-      },
-      manifest: {
-        files: ['Umbraco2FA/package.manifest'],
-        tasks: ['copy:manifest']
-      }
-      },
+        options: {
+            spawn: false,
+            atBegin: true
+        },
+        css: {
+            files: ['Umbraco2FA/**/*.css'],
+            tasks: ['copy:css']
+        },
+        dll: {
+            files: ['Umbraco2FA/Umbraco/Fortress/**/*.cs'] ,
+            tasks: ['msbuild:dist', 'copy:dll']
+        },
+        html: {
+            files: ['Umbraco2FA/**/*.html'],
+            tasks: ['copy:html', 'copy:treeHtml']
+        },
+        js: {
+            files: ['Umbraco2FA/**/*.js'],
+            tasks: ['concat:dist']
+        },
+        lang: {
+            files: ['Umbraco2FA/**/*.xml'],
+            tasks: ['copy:lang']
+        },
+        manifest: {
+            files: ['Umbraco2FA/package.manifest'],
+            tasks: ['copy:manifest']
+        },        
+        sass: {
+            files: ['Umbraco2FA/**/*.scss'],
+            tasks: ['sass', 'copy:css']
+        }
+    },
 
     concat: {
-      options: {
-        stripBanners: false
-      },
-      dist: {
-        src: [
-			      'Umbraco2FA/resources/BackOffice.resource.js',
-            'Umbraco2FA/resources/TwoFactor.resource.js',
-            'Umbraco2FA/controllers/edit.controller.js',
-            'Umbraco2FA/controllers/umbraco2FA.dashboard.controller.js',
-            'Umbraco2FA/controllers/TwoFactor/umbraco2FA.twoFactorLogin.controller.js',
-            'Umbraco2FA/controllers/TwoFactor/umbraco2FA.twofactor.controller.js'
-        ],
-        dest: '<%= basePath %>/js/Umbraco2FA.js'
-      }
+        options: {
+            stripBanners: false
+        },
+        dist: {
+            src: [
+                'Umbraco2FA/resources/BackOffice.resource.js',
+                'Umbraco2FA/resources/TwoFactor.resource.js',
+                'Umbraco2FA/controllers/edit.controller.js',
+                'Umbraco2FA/controllers/umbraco2FA.dashboard.controller.js',
+                'Umbraco2FA/controllers/TwoFactor/umbraco2FA.twoFactorLogin.controller.js',
+                'Umbraco2FA/controllers/TwoFactor/umbraco2FA.twofactor.controller.js'
+            ],
+            dest: '<%= basePath %>/js/Umbraco2FA.js'
+        }
     },
 
     copy: {
-      dll: {
-        cwd: 'Umbraco2FA/Umbraco/Fortress/bin/debug/',
-        src: ['Orc.Fortress.dll','Google.Authenticator.dll'],
-        dest: '<%= dest %>/bin/',
-        expand: true
-      },
+        dll: {
+            cwd: 'Umbraco2FA/Umbraco/Fortress/bin/debug/',
+            src: ['Orc.Fortress.dll','Google.Authenticator.dll'],
+            dest: '<%= dest %>/bin/',
+            expand: true
+        },
       html: {
         cwd: 'Umbraco2FA/views/',
         src: [
