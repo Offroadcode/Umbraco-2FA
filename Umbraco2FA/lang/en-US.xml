@@ -4,4 +4,8 @@
         <name>Offroadcode Limited</name>
         <link>https://offroadcode.com/</link>
     </creator>
+    <area alias="fortress">
+        <key alias="removeauthenticator">Remove Authenticator</key>
+        <key alias="setup">Setup</key>
+    </area>  
 </language>

@@ -8,11 +8,11 @@
         <div ng-show="settingsLoaded">
             <div ng-show="data.IsSetup">
                 <h1>You are setup!</h1>
-                    <a href class="btn btn-danger" ng-click="removeAuthenticator()"><i class="icon-unlocked"></i> <localize key="removeautenticator">Remove Autenticator</localize></a>
+                    <a href class="btn btn-danger" ng-click="removeAuthenticator()"><i class="icon-unlocked"></i> <localize key="fortress_removeautenticator">Remove Autenticator</localize></a>
             </div>
             <div ng-show="!data.IsSetup">
                 <h1>You are NOT setup!</h1>
-                <a href class="btn btn-primary" ng-click="setupAccount()"><i class="icon-locked"></i> <localize key="setup">Setup</localize></a>
+                <a href class="btn btn-primary" ng-click="setupAccount()"><i class="icon-locked"></i> <localize key="fortress_setup">Setup</localize></a>
             </div>
         </div>
     </div>
