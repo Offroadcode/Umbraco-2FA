@@ -21,20 +21,16 @@ using Orc.Fortress.UserManagement;
 using Microsoft.AspNet.Identity;
 using Umbraco.Core.Configuration;
 
-[assembly: OwinStartup("FortressOwinStartup", typeof (FortressOwinStartup))]
-
 namespace Orc.Fortress.Startup
 {
-    public class FortressOwinStartup : UmbracoDefaultOwinStartup
+    public class FortressOwinStartup
     {
         /// <summary>
         ///     Configures services to be created in the OWIN context (CreatePerOwinContext)
         /// </summary>
         /// <param name="app"></param>
-        protected override void ConfigureServices(IAppBuilder app)
-        {
-            app.SetUmbracoLoggerFactory();
-
+        public static void ConfigureServices(IAppBuilder app)
+        {            
             var applicationContext = ApplicationContext.Current;
             LogHelper.Info(typeof(FortressOwinStartup), "Fortress: Startup");
             //Here's where we assign a custom UserManager called MyBackOfficeUserManager
@@ -57,14 +53,15 @@ namespace Orc.Fortress.Startup
             
         }
 
-
-        //You don't need to override this unless you plan on implementing custom middleware which you might
-        protected override void ConfigureMiddleware(IAppBuilder app)
+        /// <summary>
+        /// You don't need to override this unless you plan on implementing custom middleware which you might
+        /// </summary>
+        /// <param name="app"></param>
+        public static void ConfigureMiddleware(IAppBuilder app)
         {
             LogHelper.Info(typeof (FortressOwinStartup), "OFFROADCODE: ConfigureMiddleware");
 
-            app.UseTwoFactorSignInCookie(global::Umbraco.Core.Constants.Security.BackOfficeTwoFactorAuthenticationType, TimeSpan.FromMinutes(5));
-            base.ConfigureMiddleware(app);
+            app.UseTwoFactorSignInCookie(global::Umbraco.Core.Constants.Security.BackOfficeTwoFactorAuthenticationType, TimeSpan.FromMinutes(5));            
         }
     }
     

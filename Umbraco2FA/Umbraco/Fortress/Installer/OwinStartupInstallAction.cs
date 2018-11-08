@@ -16,17 +16,7 @@ namespace Fortress.Installer
         }
 
         public bool Execute(string packageName, XmlNode xmlData)
-        {
-            LogHelper.Debug<OwinStartupInstallAction>("Execute");
-
-            Configuration config = WebConfigurationManager.OpenWebConfiguration("/");
-            string oldValue = config.AppSettings.Settings["owin:appStartup"].Value;
-            if (oldValue == "UmbracoDefaultOwinStartup")
-            {
-                LogHelper.Debug<OwinStartupInstallAction>("Setting to FortressOwinStartup");
-                config.AppSettings.Settings["owin:appStartup"].Value = "FortressOwinStartup";
-                config.Save(ConfigurationSaveMode.Modified);
-            }
+        {           
             return true;
         }
 
@@ -39,12 +29,7 @@ namespace Fortress.Installer
         }
 
         public bool Undo(string packageName, XmlNode xmlData)
-        {
-            LogHelper.Debug<OwinStartupInstallAction>("Undo");
-
-            Configuration config = WebConfigurationManager.OpenWebConfiguration("/");
-            config.AppSettings.Settings["owin:appStartup"].Value = "UmbracoDefaultOwinStartup";
-            config.Save(ConfigurationSaveMode.Modified);
+        {            
             return true;
         }
     }
